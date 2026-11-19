@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Leonida Trophy Atlas — GTA VI Platinum Guide &amp; Tracker</title>
+<meta name="description" content="Offline guide and tracker for all 55 GTA VI PlayStation 5 trophies: official list, cited guides, platinum roadmap, missable alerts and a spoiler-safe checklist.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header id="top">
+  <div class="brand">
+    <span class="mark" aria-hidden="true">L</span>
+    <div>
+      <h1>Leonida Trophy Atlas</h1>
+      <p class="subtitle">GTA VI &middot; PlayStation 5 &middot; 55 trophies &middot; offline guide &amp; tracker</p>
+    </div>
+  </div>
+  <div class="progress" id="progressBox" role="status" aria-label="Platinum progress">
+    <svg id="ring" width="84" height="84" viewBox="0 0 84 84" aria-hidden="true">
+      <circle class="ring-bg" cx="42" cy="42" r="36"></circle>
+      <circle class="ring-fg" id="ringFg" cx="42" cy="42" r="36"></circle>
+    </svg>
+    <div class="progress-text">
+      <strong id="progressCount">0 / 55</strong>
+      <span id="progressPct">0% to platinum</span>
+      <span id="progressGrades">0 platinum &middot; 0 gold &middot; 0 silver &middot; 0 bronze</span>
+    </div>
+  </div>
+</header>
+
+<nav id="tabs" aria-label="Guide sections">
+  <button type="button" data-view="tracker" class="tab active">Tracker</button>
+  <button type="button" data-view="roadmap" class="tab">Roadmap to platinum</button>
+  <button type="button" data-view="missable" class="tab">Missable <span class="tab-badge" id="missableCount">1</span></button>
+  <button type="button" data-view="nextup" class="tab">Next up</button>
+  <button type="button" data-view="sources" class="tab">Sources &amp; about</button>
+</nav>
+
+<section id="toolbar" aria-label="Tracker controls">
+  <div class="chips" id="kindChips" role="group" aria-label="Filter by kind">
+    <button type="button" data-kind="all" class="chip active">All 55</button>
+    <button type="button" data-kind="story" class="chip">Story</button>
+    <button type="button" data-kind="missable" class="chip">Missable</button>
+    <button type="button" data-kind="collectibles" class="chip">Collectibles</button>
+    <button type="button" data-kind="activities" class="chip">Activities</button>
+    <button type="button" data-kind="online" class="chip">Online</button>
+  </div>
+  <input id="search" type="search" placeholder="Search a trophy, mission or place…" aria-label="Search trophies">
+  <label class="ctl">Grade
+    <select id="gradeFilter">
+      <option value="all">All grades</option>
+      <option value="platinum">Platinum</option>
+      <option value="gold">Gold</option>
+      <option value="silver">Silver</option>
+      <option value="bronze">Bronze</option>
+    </select>
+  </label>
+  <label class="ctl check"><input type="checkbox" id="earnedOnly"> Earned only</label>
+  <label class="ctl check"><input type="checkbox" id="spoilerToggle"> Spoiler-free story</label>
+  <button type="button" id="exportBtn">Export progress</button>
+  <label class="import-btn">Import progress <input id="importFile" type="file" accept="application/json,.json"></label>
+  <button type="button" id="resetBtn" title="Clear all earned marks, counters and notes">Reset</button>
+</section>
+
+<main>
+  <div id="view-tracker" class="view active">
+    <div class="kind-bars" id="kindBars" aria-label="Progress by kind"></div>
+    <div class="tracker-grid">
+      <div>
+        <p class="list-meta" id="listMeta"></p>
+        <ul id="trophyList" class="trophy-list"></ul>
+        <p class="empty" id="emptyMsg" hidden>No trophies match these filters. Try clearing the search or choosing another kind — the Online filter is empty on purpose: GTA VI has no online trophies.</p>
+      </div>
+      <aside id="detail" class="detail" aria-label="Trophy guide"></aside>
+    </div>
+  </div>
+  <div id="view-roadmap" class="view">
+    <div id="roadmapFacts" class="fact-row"></div>
+    <p class="page-intro" id="roadmapIntro"></p>
+    <ol id="roadmapStages" class="stages"></ol>
+  </div>
+  <div id="view-missable" class="view">
+    <p class="page-intro">Only <strong>one</strong> trophy is possibly missable — and the game gives you 15 manual save slots to protect it. Everything else can be earned after the story in free-roam.</p>
+    <div id="missableList"></div>
+    <section class="save-plan" id="savePlan">
+      <h2>The manual-save plan</h2>
+      <p>GTA VI has <strong>no mission replay</strong> and no New Game+, but it does have <strong>15 manual save slots</strong> plus one autosave (PowerPyx, S1). Keep a save at the start and end of each chapter — 10 saves — and rotate the remaining 5 for free-roam cleanup. Cheats disable trophies and saving, so do not use them on your platinum save.</p>
+      <h2>Not missable — do not worry</h2>
+      <p>Every story trophy is automatic and cannot be missed (PowerPyx, S1). Optional missions that disappear do not affect trophies, quest givers who vanish temporarily come back, and every trophy-related character is still available after the story in free-roam.</p>
+    </section>
+  </div>
+  <div id="view-nextup" class="view">
+    <p class="page-intro">Your shortest path to the platinum, in order. The planner puts the possibly missable trophy first, then the earliest roadmap stage you have not finished, then the quickest wins.</p>
+    <ol id="nextUpList" class="nextup"></ol>
+    <p class="page-intro" id="nextUpDone" hidden>Nothing left — every trophy is earned. Vice Got a Price! should have popped. Congratulations, Leonida Legend.</p>
+  </div>
+  <div id="view-sources" class="view">
+    <section class="about">
+      <h2>About this atlas</h2>
+      <p>An unofficial fan guide, written for this entry in our own words. Trophy names, descriptions and grades are shown exactly as PlayStation publishes them. Every guide cites its sources beside the trophy: a specific place or step with no source earns no trust, so where a method is still unconfirmed this atlas says so plainly instead of inventing one.</p>
+      <p>Progress is saved only in your browser (localStorage). Export it to a file to back it up, and import it back on any device. The app fetches nothing at run time and works with the network off.</p>
+      <h2>Sources</h2>
+      <ul id="sourceList" class="source-list"></ul>
+      <h2>How the list was checked</h2>
+      <p>55 trophies: 1 platinum, 2 gold, 6 silver, 46 bronze; 28 hidden on PlayStation until earned. Names, descriptions and grades were taken from Exophase and cross-checked with PSNProfiles (S2, S3); the roadmap figures and per-trophy methods come from PowerPyx (S1), with roadmap context from Push Square (S4). Retrieved 19 November 2026.</p>
+    </section>
+  </div>
+</main>
+
+<footer id="foot">
+  <p>Leonida Trophy Atlas — unofficial fan guide. Not affiliated with Rockstar Games, Sony or PlayStation. Progress stays in your browser &middot; 55 trophies &middot; works offline.</p>
+</footer>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
