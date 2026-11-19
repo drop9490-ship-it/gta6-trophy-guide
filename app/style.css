@@ -148,12 +148,13 @@ main { padding: 18px 26px 30px; max-width: 1460px; margin: 0 auto; }
   position: sticky; top: 78px; background: var(--panel); border: 1px solid var(--line);
   border-radius: 14px; padding: 18px; max-height: calc(100vh - 100px); overflow: auto;
 }
-.detail h2 { font-size: 22px; }
+.detail h2 { font-size: 22px; position: sticky; top: -18px; background: var(--panel); padding: 8px 0 6px; margin: -8px 0 8px; z-index: 1; }
 .detail .official { color: var(--muted); font-size: 13.5px; border-left: 3px solid var(--gold); padding-left: 10px; margin: 10px 0; }
 .detail .official b { color: var(--ink); display: block; font-size: 11px; letter-spacing: .6px; text-transform: uppercase; }
 .detail ol.steps { margin: 6px 0 12px; padding-left: 20px; }
 .detail ol.steps li { margin-bottom: 5px; }
 .detail .guide-text { margin-bottom: 12px; }
+.src-line { font-size: 13px; color: var(--teal); font-weight: 600; margin: -4px 0 12px; }
 .missable-callout {
   background: #3d1620; border: 1px solid var(--danger); border-radius: 10px; padding: 10px 12px; margin: 0 0 12px;
 }

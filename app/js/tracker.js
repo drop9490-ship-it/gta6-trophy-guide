@@ -96,7 +96,10 @@ export function renderTrophyList(listEl, metaEl, emptyEl, trophies, filters, sta
     }
     const spacer = document.createElement('div');
     li.append(box, body, spacer);
-    li.addEventListener('click', () => onSelect(t.name, false));
+    li.addEventListener('click', (event) => {
+      if (event.target.closest('input, button, textarea, select, a')) return;
+      onSelect(t.name, false);
+    });
     listEl.append(li);
   }
 }
@@ -162,6 +165,13 @@ export function renderDetail(detailEl, doc, trophy, state, onChanged) {
     guide.className = 'guide-text';
     guide.textContent = trophy.guide;
     detailEl.append(guide);
+    const srcLine = document.createElement('p');
+    srcLine.className = 'src-line';
+    srcLine.textContent = 'Sources: ' + trophy.sources.map((ref) => {
+      const s = doc.sources.find((x) => x.ref === ref);
+      return '[' + ref + '] ' + (s ? s.name.split(' — ')[0] : ref);
+    }).join(' · ');
+    detailEl.append(srcLine);
     const stepsTitle = document.createElement('h3');
     stepsTitle.textContent = 'Steps';
     detailEl.append(stepsTitle);

@@ -87,7 +87,10 @@ export function renderMissable(doc, state, onSelect) {
     desc.textContent = t.description + ' ' + t.guide;
     body.append(name, desc);
     li.append(box, body, document.createElement('div'));
-    li.addEventListener('click', () => onSelect(t.name, false));
+    li.addEventListener('click', (event) => {
+      if (event.target.closest('input, button, textarea, select, a')) return;
+      onSelect(t.name, false);
+    });
     ul.append(li);
   }
   list.append(ul);
