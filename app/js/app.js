@@ -79,7 +79,7 @@ function renderAll() {
     document.getElementById('emptyMsg'),
     doc.trophies, filters, state, selectedName, selectTrophy,
   );
-  renderDetail(document.getElementById('detail'), doc, selectedTrophy(), state, renderAll);
+  renderDetail(document.getElementById('detail'), doc, selectedTrophy(), state, renderAll, roadmap);
   renderRoadmap(doc, roadmap, state);
   renderMissable(doc, state, (name) => { selectedName = name; switchView('tracker'); });
   renderNextUp(doc, state, (name) => { selectedName = name; switchView('tracker'); });

@@ -8,6 +8,22 @@ export function spoilerHides(state, trophy) {
   return state.spoiler && trophy.hidden && !isEarned(state, trophy);
 }
 
+// Effort is an editorial estimate derived from the trophy's own data, never a
+// new fact: story trophies are automatic, counted trophies grind by target,
+// the one missable trophy is about timing, and the three unconfirmed ones
+// (44, 49, 51) stay unconfirmed.
+const UNCONFIRMED = new Set([44, 49, 51]);
+export function effortOf(trophy) {
+  if (UNCONFIRMED.has(trophy.id)) return 'Method unconfirmed';
+  if (trophy.missable) return 'Timing matters';
+  if (trophy.grade === 'platinum') return 'Earn all 54';
+  if (trophy.kind === 'story') return 'Easy · automatic';
+  if (trophy.count && trophy.count >= 100) return 'Long grind';
+  if (trophy.count && trophy.count >= 20) return 'Medium grind';
+  if (trophy.count) return 'Short grind';
+  return 'Quick';
+}
+
 function formatCount(trophy) {
   if (!trophy.count) return '';
   if (trophy.countUnit === 'dollars laundered') return '$' + trophy.count.toLocaleString('en-US') + ' to launder';
@@ -24,7 +40,7 @@ export function filterTrophies(trophies, filters, state) {
     if (filters.earnedOnly && !isEarned(state, t)) return false;
     if (filters.query) {
       const q = filters.query.toLowerCase();
-      const hay = (t.name + ' ' + t.description + ' ' + t.guide).toLowerCase();
+      const hay = (t.name + ' ' + t.description + ' ' + t.guide + ' ' + (t.tips || []).join(' ')).toLowerCase();
       if (!hay.includes(q)) return false;
     }
     return true;
@@ -115,7 +131,7 @@ function sourceLink(doc, ref) {
   return a;
 }
 
-export function renderDetail(detailEl, doc, trophy, state, onChanged) {
+export function renderDetail(detailEl, doc, trophy, state, onChanged, roadmap) {
   detailEl.replaceChildren();
   if (!trophy) {
     const p = document.createElement('p');
@@ -144,6 +160,26 @@ export function renderDetail(detailEl, doc, trophy, state, onChanged) {
     tags.append(m);
   }
   detailEl.append(tags);
+  // Facts row: which roadmap stage, how much effort, and the count target.
+  const facts = document.createElement('div');
+  facts.className = 'facts';
+  const STAGE_SHORT = { 1: 'Story', 2: 'Side quests', 3: '100% checklist', 4: 'Collectibles & money', 5: 'Cleanup' };
+  const stageChip = document.createElement('span');
+  stageChip.className = 'fact-chip';
+  stageChip.textContent = 'Stage ' + trophy.stage + ' · ' + (STAGE_SHORT[trophy.stage] || '');
+  facts.append(stageChip);
+  const effort = effortOf(trophy);
+  const effortChip = document.createElement('span');
+  effortChip.className = 'fact-chip' + (effort === 'Long grind' ? ' effort-long' : '') + (effort === 'Timing matters' || effort === 'Method unconfirmed' ? ' effort-warn' : '');
+  effortChip.textContent = 'Effort: ' + effort;
+  facts.append(effortChip);
+  if (trophy.count) {
+    const target = document.createElement('span');
+    target.className = 'fact-chip';
+    target.textContent = 'Target: ' + formatCount(trophy);
+    facts.append(target);
+  }
+  detailEl.append(facts);
   const official = document.createElement('p');
   official.className = 'official';
   const label = document.createElement('b');
@@ -161,6 +197,19 @@ export function renderDetail(detailEl, doc, trophy, state, onChanged) {
     detailEl.append(call);
   }
   if (!hidden) {
+    if (trophy.tips && trophy.tips.length) {
+      const tipsTitle = document.createElement('h3');
+      tipsTitle.textContent = 'Tips';
+      detailEl.append(tipsTitle);
+      const tips = document.createElement('ul');
+      tips.className = 'tips';
+      for (const tip of trophy.tips) {
+        const li = document.createElement('li');
+        li.textContent = tip;
+        tips.append(li);
+      }
+      detailEl.append(tips);
+    }
     const guide = document.createElement('p');
     guide.className = 'guide-text';
     guide.textContent = trophy.guide;

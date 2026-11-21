@@ -8,7 +8,7 @@ Leonida Trophy Atlas — an offline guide and tracker for all 55 GTA VI PlayStat
 
 ## What's inside
 
-- **Tracker** — all 55 trophies with official name, description and grade; checklist saved in the browser, progress counters for counted trophies (stunts, scans, vaults…), personal notes, search, filters by kind (story, missable, collectibles, activities, online) and grade, and a spoiler-free mode that hides story trophies until earned.
+- **Tracker** — all 55 trophies with official name, description and grade; checklist saved in the browser, progress counters for counted trophies (stunts, scans, vaults…), personal notes, search, filters by kind (story, missable, collectibles, activities, online) and grade, and a spoiler-free mode that hides story trophies until earned. Every trophy's guide pane shows a facts row (roadmap stage, effort estimate, count target), numbered steps, and practical tips drawn from the cited methods.
 - **Roadmap to platinum** — 5 stages in order, from the story (60–80h) through the side questlines, the 100% Completion Checklist (~100h), collectibles and money, to cleanup and the platinum (~200h total).
 - **Missable** — the one possibly missable trophy (Positive Mental Attitude, Chapter 1 meditation) plus the manual-save plan: 15 save slots, no mission replay.
 - **Next up** — a planner that orders what is left: missable first, then the earliest roadmap stage, then the quickest wins.
